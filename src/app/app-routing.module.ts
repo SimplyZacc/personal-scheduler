@@ -6,7 +6,11 @@ import { MainComponent } from "./layouts/main/main.component";
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./layouts/main/main.module').then(m => m.MainModule)
+    }]
   }
 ];
 

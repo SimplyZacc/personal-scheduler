@@ -7,22 +7,12 @@
     </div>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <fa-icon [icon]="faHome"></fa-icon>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <fa-icon [icon]="faCalendar"></fa-icon>
-          Calendar
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <fa-icon [icon]="faChartBar"></fa-icon>
-          Grades
+      <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+        <a class="nav-link link-dark" [routerLink]="[menuItem.path]">
+          <button class="btn btn-outline-secondary">
+            <fa-icon [icon]="menuItem.icon"></fa-icon>
+            {{menuItem.title}}
+          </button>
         </a>
       </li>
     </ul>
@@ -57,19 +47,11 @@
     </div>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto text-center">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <fa-icon [icon]="faHome"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <fa-icon [icon]="faCalendar"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <fa-icon [icon]="faChartBar"></fa-icon>
+      <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+        <a class="nav-link link-dark" [routerLink]="[menuItem.path]">
+          <button class="btn btn-outline-secondary">
+            <fa-icon [icon]="menuItem.icon"></fa-icon>
+          </button>
         </a>
       </li>
     </ul>
