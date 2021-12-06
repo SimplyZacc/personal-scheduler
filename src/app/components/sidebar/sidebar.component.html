@@ -1,1 +1,95 @@
-<p>sidebar works!</p>
+<div *ngIf="sideBarToggled(); else elseBlock">
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sb">
+    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none text-center">
+      <button (click)="toggleSideBar()" class="bar-btn">
+        <fa-icon [icon]="faBars"></fa-icon>
+      </button>
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <fa-icon [icon]="faHome"></fa-icon>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-dark">
+          <fa-icon [icon]="faCalendar"></fa-icon>
+          Calendar
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-dark">
+          <fa-icon [icon]="faChartBar"></fa-icon>
+          Grades
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- <img src="" alt="" width="32" height="32" class="rounded-circle me-2"> -->
+
+        <fa-icon [icon]="faUser" width="32" height="32" class="rounded-circle me-2"></fa-icon>
+        <strong>Username</strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sb">
+    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none text-center">
+      <button (click)="toggleSideBar()" class="bar-btn">
+        <fa-icon [icon]="faBars"></fa-icon>
+      </button>
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto text-center">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <fa-icon [icon]="faHome"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-dark">
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-dark">
+          <fa-icon [icon]="faChartBar"></fa-icon>
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- <img src="" alt="" width="32" height="32" class="rounded-circle me-2"> -->
+
+        <fa-icon [icon]="faUser" width="32" height="32" class="rounded-circle me-2"></fa-icon>
+      </a>
+      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
