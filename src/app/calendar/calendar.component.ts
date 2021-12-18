@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
+import { ApiService } from "../core/services/api.service";
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor() { }
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    height: 600,
+    selectable: true,
+    unselectAuto: true,
+    dateClick: this.handleDateClick.bind(this), // bind is important!
+    events: [
+      { title: 'event 1',  color: 'red', backgroundColor: 'blue', start: '2021-12-01T14:30:00', end: '2021-12-01T16:30:00', allDay: false},
+      { title: 'event 2', date: '2021-12-10' },
+      { title: 'event 3', date: '2021-12-10' },
+      { title: 'event 4', date: '2021-12-10' },
+      { title: 'event 5', date: '2021-12-10' },
+    ],
+  }
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+  }
+
+  handleDateClick(arg: any) {
+    console.log(
+      this.apiService.post('login')
+      .pipe(map(data => data.data))
+    );
   }
 
 }

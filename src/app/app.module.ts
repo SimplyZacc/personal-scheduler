@@ -7,11 +7,25 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './layouts/main/main.component';
+import { HomeComponent } from './home/home.component';
+import { CalendarComponent } from './calendar/calendar.component';
+
+import { HttpClientModule } from "@angular/common/http";
 
 //import {  } from "ngx-bootstrap/";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { HomeComponent } from './home/home.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid'; // a plugin!
+import listPlugin  from '@fullcalendar/list'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin,
+  timeGridPlugin,
+  listPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -26,7 +40,9 @@ import { CalendarComponent } from './calendar/calendar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FullCalendarModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
