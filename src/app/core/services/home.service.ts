@@ -15,17 +15,12 @@ export class HomeService {
   constructor(
     private apiService: ApiService,
     private jwtService: JwtService
-    ) { }
+  ) { }
 
-  Login(userName: string, password: string){
-    this.apiService.post('login',{ User: { body: userName } } )
-      .pipe(map(data => data.data));
-  }
-
-  postFoods(newFood: User): Observable<User> {
-    return this.apiService
-      .post(
-        'api/Food', { Food: { body: newFood } }
-      ).pipe(map(data => data.Food));
+  Login(user: User) {
+    return this.apiService.post('user/login', user)
+      .pipe(map(data => data));
+    // return this.apiService.post('user/login', { username: user.username, password: user.password })
+    //   .pipe(map(data => data));
   }
 }

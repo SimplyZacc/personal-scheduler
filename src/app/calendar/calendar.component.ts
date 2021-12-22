@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
-import { ApiService } from "../core/services/api.service";
+import { HomeService } from "../core/services/home.service";
 import { map } from 'rxjs/operators';
+import { User } from '../core/Models/User';
 
 @Component({
   selector: 'app-calendar',
@@ -22,7 +23,7 @@ export class CalendarComponent implements OnInit {
     unselectAuto: true,
     dateClick: this.handleDateClick.bind(this), // bind is important!
     events: [
-      { title: 'event 1',  color: 'red', backgroundColor: 'blue', start: '2021-12-01T14:30:00', end: '2021-12-01T16:30:00', allDay: false},
+      { title: 'event 1', color: 'red', backgroundColor: 'blue', start: '2021-12-01T14:30:00', end: '2021-12-01T16:30:00', allDay: false },
       { title: 'event 2', date: '2021-12-10' },
       { title: 'event 3', date: '2021-12-10' },
       { title: 'event 4', date: '2021-12-10' },
@@ -30,16 +31,22 @@ export class CalendarComponent implements OnInit {
     ],
   }
 
-  constructor(private apiService: ApiService) { }
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
   }
 
   handleDateClick(arg: any) {
-    console.log(
-      this.apiService.post('login')
-      .pipe(map(data => data.data))
-    );
+    const user: User = {
+      username: 'Simplyzacc',
+      password: 'Test@123',
+    };
+
+    var a = this.homeService.Login(user);
+
+    a.subscribe(data => {
+      console.log(data);
+    });
   }
 
 }
