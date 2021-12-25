@@ -23,4 +23,9 @@ export class HomeService {
     // return this.apiService.post('user/login', { username: user.username, password: user.password })
     //   .pipe(map(data => data));
   }
+
+  Register(user: User) {
+    return this.apiService.post('user/register', user)
+      .pipe(map(data => data));
+  }
 }

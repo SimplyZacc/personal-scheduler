@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SidebarService } from "./sidebar.service";
+import { JwtService } from "../../core/services/jwt.service";
 
 import { faBars, faCalendar, faChartBar, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Route } from '@angular/router';
+import { Router } from '@angular/router';
 
 declare interface RouteInfo {
   path: string;
@@ -29,7 +30,7 @@ export class SidebarComponent implements OnInit {
 
   menuItems: any = {};
 
-  constructor(private sideBarService: SidebarService) {
+  constructor(private sideBarService: SidebarService, private jwt: JwtService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,6 +43,11 @@ export class SidebarComponent implements OnInit {
 
   sideBarToggled(): boolean {
     return this.sideBarService.sideNavToggle;
+  }
+
+  signOut() {
+    this.jwt.destroyToken();
+    this.router.navigateByUrl('');
   }
 
 }

@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-md-none d-lg-block col-lg-8 login-left"></div>
+        <div class="col-6 col-lg-4 col-md-12 login-right">
+            <div class="vert-center">
+                <div class="login-txt">
+                    Login to continue
+                </div>
+                <div class="login-form">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div *ngIf="loginForm.errors?.['minlength']">
+                            Name must be atleast 4 characters long.
+                        </div>
+
+                        <fieldset class='float-label-field'>
+                            <label for="username">Username</label><br />
+                            <input type="text" placeholder="Username" name="username" id="username" formControlName="username">
+                        </fieldset>
+
+                        <fieldset class='float-label-field'>
+                            <label for="password">Password</label><br />
+                            <input type="password" placeholder="Password" name="password" id="password" formControlName="password">
+                        </fieldset>
+                        <button type="submit" [disabled]="!loginForm.valid" class="button">Login</button>
+                    </form>
+                    <a [routerLink]="['/register']">No account? Sign up here!</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

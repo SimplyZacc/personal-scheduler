@@ -37,16 +37,6 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
-    const user: User = {
-      username: 'Simplyzacc',
-      password: 'Test@123',
-    };
-
-    var a = this.homeService.Login(user);
-
-    a.subscribe(data => {
-      console.log(data);
-    });
   }
 
 }
