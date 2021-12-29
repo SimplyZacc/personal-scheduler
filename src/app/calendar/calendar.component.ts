@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
 import { HomeService } from "../core/services/home.service";
 import { map } from 'rxjs/operators';
 import { User } from '../core/Models/User';
@@ -10,6 +10,8 @@ import { User } from '../core/Models/User';
   styleUrls: ['./calendar.component.sass']
 })
 export class CalendarComponent implements OnInit {
+
+  @ViewChild('calendar') calendarVar: FullCalendarComponent | undefined;
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -24,7 +26,7 @@ export class CalendarComponent implements OnInit {
     dateClick: this.handleDateClick.bind(this), // bind is important!
     events: [
       { title: 'event 1', color: 'red', backgroundColor: 'blue', start: '2021-12-01T14:30:00', end: '2021-12-01T16:30:00', allDay: false },
-      { title: 'event 2', date: '2021-12-10' },
+      { title: 'event 2', color: 'red', backgroundColor: 'blue', start: '2021-12-10T14:30:00', end: '2021-12-10T16:30:00'},
       { title: 'event 3', date: '2021-12-10' },
       { title: 'event 4', date: '2021-12-10' },
       { title: 'event 5', date: '2021-12-10' },
@@ -37,6 +39,12 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
+    let calendarApi = this.calendarVar?.getApi();
+    console.log(arg.date);
+    if(calendarApi?.view.type == "dayGridMonth")
+    {
+      calendarApi.changeView("timeGridDay", arg.date)
+    }
   }
 
 }
