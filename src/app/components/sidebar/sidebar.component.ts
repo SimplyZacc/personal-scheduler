@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SidebarService } from "./sidebar.service";
 import { JwtService } from "../../core/services/jwt.service";
+import { UserService } from "../../core/services/user.service";
 
 import { faBars, faCalendar, faChartBar, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Router } from '@angular/router';
@@ -27,14 +28,16 @@ export class SidebarComponent implements OnInit {
 
   faBars = faBars;
   faUser = faUser;
+  Username: String = "Username";
 
   menuItems: any = {};
 
-  constructor(private sideBarService: SidebarService, private jwt: JwtService, private router: Router) {
+  constructor(private sideBarService: SidebarService, private jwt: JwtService, private router: Router, private user: UserService,) {
   }
 
   ngOnInit(): void {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.Username = this.user.getName();
   }
 
   toggleSideBar() {

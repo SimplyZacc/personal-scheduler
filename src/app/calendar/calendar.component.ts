@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
-import { HomeService } from "../core/services/home.service";
 import { map } from 'rxjs/operators';
-import { User } from '../core/Models/User';
+import { ApiService } from "../core/services/api.service";
+import { NavbarService } from "../components/navbar/navbar.service";
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.sass']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('calendar') calendarVar: FullCalendarComponent | undefined;
 
@@ -24,27 +24,56 @@ export class CalendarComponent implements OnInit {
     selectable: true,
     unselectAuto: true,
     dateClick: this.handleDateClick.bind(this), // bind is important!
-    events: [
-      { title: 'event 1', color: 'red', backgroundColor: 'blue', start: '2021-12-01T14:30:00', end: '2021-12-01T16:30:00', allDay: false },
-      { title: 'event 2', color: 'red', backgroundColor: 'blue', start: '2021-12-10T14:30:00', end: '2021-12-10T16:30:00'},
-      { title: 'event 3', date: '2021-12-10' },
-      { title: 'event 4', date: '2021-12-10' },
-      { title: 'event 5', date: '2021-12-10' },
-    ],
+    eventClick: this.handleEventClick.bind(this),
+    events: [],
   }
 
-  constructor(private homeService: HomeService) { }
+  constructor(private apiService: ApiService, private nav: NavbarService) { }
 
   ngOnInit(): void {
+    this.nav.setTitle("Calendar");
+  }
+
+  ngAfterViewInit(): void {
+    this.addEvents();
   }
 
   handleDateClick(arg: any) {
     let calendarApi = this.calendarVar?.getApi();
-    console.log(arg.date);
-    if(calendarApi?.view.type == "dayGridMonth")
-    {
+    if (calendarApi?.view.type == "dayGridMonth") {
       calendarApi.changeView("timeGridDay", arg.date)
     }
+  }
+
+  handleEventClick(arg: any) {
+    console.log(arg.event);
+  }
+
+  addEvents() {
+    let calendarApi = this.calendarVar?.getApi();
+
+
+    var a = this.apiService.get('event').pipe(map(data => data));
+
+    a.subscribe(data => {
+      if (data.status) {
+        data.data.forEach((item: { title: string; start: Date; end: Date; allDay: boolean; backgroundColor: string; color: string; }) => {
+          console.log(item);
+          calendarApi?.addEvent({
+            title: item.title,
+            start: item.start,
+            end: item.end,
+            allDay: item.allDay,
+            backgroundColor: item.backgroundColor,
+            textColor: item.color,
+          });
+        });
+      } else {
+        alert("call failed");
+      }
+
+
+    });
   }
 
 }

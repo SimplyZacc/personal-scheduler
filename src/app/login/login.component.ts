@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../core/Models/User';
 import { HomeService } from "../core/services/home.service";
 import { JwtService } from "../core/services/jwt.service";
+import { UserService } from "../core/services/user.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
               private jwt: JwtService,
               private fb: FormBuilder,
               private router: Router,
+              private user: UserService,
               ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,8 @@ export class LoginComponent implements OnInit {
     a.subscribe(data => {
       if(data.status)
       {
-        this.jwt.saveToken(data.data);
+        this.jwt.saveToken(data.data.token);
+        this.user.saveName(data.data.name);
         this.router.navigateByUrl('/main');
       } else{
         alert("Incorrect username or Password.")

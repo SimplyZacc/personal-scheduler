@@ -7,7 +7,12 @@ export class JwtService {
 
   token = "jwt";
 
-  constructor() { }
+  constructor() {
+    if(window.sessionStorage[this.token] == null)
+    {
+      window.sessionStorage[this.token] = '';
+    }
+  }
 
   getToken(): string {
     return window.sessionStorage[this.token];
