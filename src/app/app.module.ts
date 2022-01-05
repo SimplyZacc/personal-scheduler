@@ -21,7 +21,12 @@ import timeGridPlugin from '@fullcalendar/timegrid'; // a plugin!
 import listPlugin  from '@fullcalendar/list'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component'; // a plugin!
+import { RegisterComponent } from './register/register.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // a plugin!
+
+//Material stuff
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -50,6 +55,8 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
